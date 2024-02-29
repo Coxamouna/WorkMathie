@@ -21,7 +21,7 @@
                     "PROJECT_NAME=${fileBasenameNoExtension}",
                     // "OBJS=${fileDirname}\\*.cpp",
                     // "OBJS=src/**.cpp",
-                    "OBJS = src/main.cpp src/window.cpp",
+                    "OBJS = src/main.cpp src/window.cpp src/csv.cpp",
                     "BUILD_MODE=DEBUG"
                 ]
             },

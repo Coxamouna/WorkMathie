@@ -143,10 +143,13 @@ void Init() {
             btnState = 0;
         }
 
-        // if (btnAction)
-        // {
+        if (btnAction)
+        {
+            uploadFile();
+            
+            btnAction = false;
 
-        // } 
+        } 
 
          // Calculate button frame rectangle to draw depending on button state
         sourceRec.y = btnState*frameHeight;

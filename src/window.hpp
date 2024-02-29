@@ -2,12 +2,12 @@
 #define __WINDOW_HEADER__
 
 // #include <iostream>
-#include <fstream>
 #include <iomanip>
 #include <sstream>
 #include "C:\raylib\raylib\src\raylib.h"
 #include <string>
 #include <cmath>
+#include "csv.hpp"
 
 const int SCREENWIDTH = 600;
 const int SCREENHEIGHT = 600;
