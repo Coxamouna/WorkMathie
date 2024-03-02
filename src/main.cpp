@@ -1,7 +1,8 @@
 #include "window.hpp"
-#include "csv.hpp"
 
 int main() {
+
+    SetConfigFlags(FLAG_FULLSCREEN_MODE);
     Init();
 
     return 0;

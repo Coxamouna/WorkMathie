@@ -9,8 +9,8 @@ void DrawTextCentered(const char *text, Vector2 position, int fontSize, Color co
 
     // Calculate the position to center the text around itself
     Vector2 textPosition = {
-        (float)(position.x - textSize.x / 2.0),
-        (float)(position.y - textSize.y / 2.0)
+            static_cast<float>(position.x - textSize.x / 2),
+            static_cast<float>(position.y - textSize.y / 2)
     };
 
     float textSpacing = 5;
@@ -41,11 +41,6 @@ int strToInt(std::string str) {
     return std::stof(str);
 }
 
-// Integer to String
-std::string intToString(int num) {
-    return std::to_string(num);
-}
-
 // Convert to Decimal
 float convertToDecimal(int hours, int minutes) {
     return hours + minutes / 60.0;
@@ -63,16 +58,15 @@ float calculateDuration(int startHH, int startMM, int endHH, int endMM) {
 
 // Initialize
 void Init() {
-    InitWindow(SCREENWIDTH, SCREENHEIGHT, TITLE.c_str());
-    
-    Texture2D button = LoadTexture("resources/button.png"); // Load button texture
+     InitWindow(SCREENWIDTH, SCREENHEIGHT, TITLE.c_str());
+     Texture2D button = LoadTexture("button.png"); // Load button texture
 
     // Define frame rectangle for drawing
-    float frameHeight = (float)button.height/NUM_FRAMES;
-    Rectangle sourceRec = { 0, 0, (float)button.width, frameHeight };
+    float frameHeight = static_cast<float>(button.height)/NUM_FRAMES;
+    Rectangle sourceRec = { 0, 0, static_cast<float>(button.width), frameHeight };
 
     // Define button bounds on screen
-    Rectangle btnBounds = {(float)(SCREENWIDTH/2.0) - (float)(button.width/2.0), (float)(SCREENHEIGHT/2.0) - (float)(button.height/NUM_FRAMES/2.0) + 135, (float)button.width, frameHeight };
+    Rectangle btnBounds = {SCREENWIDTH/2 - static_cast<float>(button.width)/2, SCREENHEIGHT/2 - static_cast<float>(button.height)/NUM_FRAMES/2 + 135, static_cast<float>(button.width), frameHeight };
 
     int btnState = 0;               // Button state: 0-NORMAL, 1-MOUSE_HOVER, 2-PRESSED
     bool btnAction = false;         // Button action should be activated
@@ -87,12 +81,13 @@ void Init() {
     int indexEndHH = 0;
     int indexEndMM = 0;
 
-    Rectangle startHH = {SCREENWIDTH/2.0 - 100, 110, 55, 45};
-    Rectangle startMM = {SCREENWIDTH/2.0 + 40,  110, 55, 45};
-    Rectangle endHH   = {SCREENWIDTH/2.0 -100,  260, 55, 45};
-    Rectangle endMM   = {SCREENWIDTH/2.0 + 40,  260, 55, 45};
+    Rectangle startHH = {SCREENWIDTH/2 - 100, 110, 55, 45};
+    Rectangle startMM = {SCREENWIDTH/2 + 40,  110, 55, 45};
+    Rectangle endHH   = {SCREENWIDTH/2 -100,  260, 55, 45};
+    Rectangle endMM   = {SCREENWIDTH/2 + 40,  260, 55, 45};
 
     Vector2 mousePoint = {0.0, 0.0};
+    Vector2 touchPoint = {0.0 , 0.0};
 
     bool mouseOnStartHH = false;
     bool mouseOnStartMM = false;
@@ -105,6 +100,7 @@ void Init() {
     // Detect window close button or ESC key
     while (!WindowShouldClose()) {
         mousePoint = GetMousePosition();
+//        touchPoint = GetTouchPosition(0);
 
         // Check if the mouse is on the start hour box        
         if (CheckCollisionPointRec(mousePoint, startHH)) {
@@ -316,7 +312,6 @@ void Init() {
         DrawTextCentered(total.c_str(), (Vector2){btnBounds.x + 53, btnBounds.y - 40}, 37, SYSTEMTEXT);
         
         DrawTextureRec(button, sourceRec, (Vector2){btnBounds.x, btnBounds.y}, WHITE); // Draw button frame
-
         EndDrawing();
     }
     // De-initialize
